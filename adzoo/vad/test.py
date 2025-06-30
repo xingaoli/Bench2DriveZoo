@@ -17,6 +17,7 @@ import time
 import os.path as osp
 from adzoo.vad.apis.test import custom_multi_gpu_test, single_gpu_test
 
+
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -239,7 +240,7 @@ def main():
         if args.out:
             print(f'\nwriting results to {args.out}')
         kwargs = {} if args.eval_options is None else args.eval_options
-        kwargs['jsonfile_prefix'] = osp.join('test', args.config.split(
+        kwargs['jsonfile_prefix'] = osp.join('output/test', args.config.split(
             '/')[-1].split('.')[-2], time.ctime().replace(' ', '_').replace(':', '_'))
         if args.format_only:
             dataset.format_results(outputs, **kwargs)

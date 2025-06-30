@@ -417,10 +417,10 @@ model = dict(
             pc_range=point_cloud_range))))
 
 dataset_type = "B2D_VAD_Dataset"
-data_root = "data/bench2drive"
-info_root = "data/infos"
-map_root = "data/bench2drive/maps"
-map_file = "data/infos/b2d_map_infos.pkl"
+data_root = "data_mini/bench2drive"
+info_root = "data_mini/infos"
+map_root = "data_mini/bench2drive/maps"
+map_file = "data_mini/infos/b2d_map_infos.pkl"
 file_client_args = dict(backend="disk")
 ann_file_train=info_root + f"/b2d_infos_train.pkl"
 ann_file_val=info_root + f"/b2d_infos_val.pkl"

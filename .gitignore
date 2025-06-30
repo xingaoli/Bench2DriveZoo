@@ -158,3 +158,10 @@ pyrightconfig.json
 tmp_ckpts/
 val/
 *.ipynb
+
+
+data/
+
+ckpts/
+
+data_mini/
