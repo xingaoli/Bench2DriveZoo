@@ -224,12 +224,18 @@ class B2D_VAD_Dataset(Custom3DDataset):
         can_bus[17] = yaw_in_degree
         input_dict['can_bus'] = can_bus
         ego_lcf_feat = np.zeros(9)
-        ego_lcf_feat[0:2] = input_dict['ego_translation'][0:2]
+        #################################################
+        '''fix bug'''
+        ego_lcf_feat[0:2] = input_dict['ego_translation'][0:2] # 这里应该是np.array([ego_vx, ego_vy])
+        ####################################################
         ego_lcf_feat[2:4] = input_dict['ego_accel'][2:4]
         ego_lcf_feat[4] = input_dict['ego_rotation_rate'][-1]
         ego_lcf_feat[5] = info['ego_size'][1]
         ego_lcf_feat[6] = info['ego_size'][0]
-        ego_lcf_feat[7] = np.sqrt(input_dict['ego_translation'][0]**2+input_dict['ego_translation'][1]**2)
+        ##################################################
+        '''fix bug'''
+        ego_lcf_feat[7] = np.sqrt(input_dict['ego_translation'][0]**2+input_dict['ego_translation'][1]**2) # 这里也错了，应该是初始速度
+        #####################################################
         ego_lcf_feat[8] = info['steer']
         ego_his_trajs, ego_fut_trajs, ego_fut_masks, command = self.get_ego_trajs(index,self.sample_interval,self.past_frames,self.future_frames)
         input_dict['ego_his_trajs'] = ego_his_trajs

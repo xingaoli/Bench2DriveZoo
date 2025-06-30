@@ -310,7 +310,8 @@ class VadAgent(autonomous_agent.AutonomousAgent):
                 }
         
         return result
-    
+
+    # 直接在这里实时的把carla的数据修改成nuscenes输入的格式了
     @torch.no_grad()
     def run_step(self, input_data, timestamp):
         if not self.initialized:
@@ -337,10 +338,12 @@ class VadAgent(autonomous_agent.AutonomousAgent):
         rotation = list(Quaternion(axis=[0, 0, 1], radians=ego_theta))
         can_bus = np.zeros(18)
         can_bus[0] = tick_data['pos'][0]
+        # 转换适应坐标系了
         can_bus[1] = -tick_data['pos'][1]
         can_bus[3:7] = rotation
         can_bus[7] = tick_data['speed']
         can_bus[10:13] = tick_data['acceleration']
+        # 这些负号都是在把carla坐标系下的数据转到nuscenes坐标系下
         can_bus[11] *= -1
         can_bus[13:16] = -tick_data['angular_velocity']
         can_bus[16] = ego_theta
@@ -358,7 +361,7 @@ class VadAgent(autonomous_agent.AutonomousAgent):
             ego_lcf_feat[8] = 0
         else:
             ego_lcf_feat[8] = self.prev_control_cache[0].steer
-
+        # carla里的6种命令，-1：VOID 1：left 2：right 3：straight 4：lanefollow  5：changelaneleft 6：changelaneright
         command = tick_data['command_near']
         if command < 0:
             command = 4
@@ -369,6 +372,8 @@ class VadAgent(autonomous_agent.AutonomousAgent):
         results['ego_fut_cmd'] = command_onehot
         theta_to_lidar = raw_theta
         command_near_xy = np.array([tick_data['command_near_xy'][0]-can_bus[0],-tick_data['command_near_xy'][1]-can_bus[1]])
+
+        # 硬编码了一个旋转矩阵
         rotation_matrix = np.array([[np.cos(theta_to_lidar),-np.sin(theta_to_lidar)],[np.sin(theta_to_lidar),np.cos(theta_to_lidar)]])
         local_command_xy = rotation_matrix @ command_near_xy
   
