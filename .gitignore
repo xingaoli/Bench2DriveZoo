@@ -159,9 +159,11 @@ tmp_ckpts/
 val/
 *.ipynb
 
+.idea/
 
-data/
-
-ckpts/
+# 确保.gitignore包含以下内容（逐行检查）
+/data/          # 忽略根目录下的data文件夹（包括符号链接）
+data/           # 忽略任何位置的data文件夹（双重保险）
+/data           # 忽略名为data的符号链接本身
 
 data_mini/
