@@ -255,7 +255,7 @@ def main():
                 eval_kwargs.pop(key, None)
             eval_kwargs.update(dict(metric=args.eval, **kwargs))
 
-            print(dataset.evaluate(outputs['bbox_results'], **eval_kwargs))
+            print(dataset.evaluate_wo_metric_compute(outputs['bbox_results'], **eval_kwargs))
     
         # # # NOTE: record to json
         # json_path = args.json_dir

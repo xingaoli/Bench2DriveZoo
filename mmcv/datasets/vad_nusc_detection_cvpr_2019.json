@@ -1,0 +1,32 @@
+{
+    "class_range_x": {
+      "car": 30,
+      "van": 30,
+      "truck": 30,
+      "bicycle": 30,
+      "traffic_sign": 30,
+      "traffic_cone": 30,
+      "traffic_light": 30,
+      "pedestrian": 30,
+      "others": 30
+    },
+    "class_range_y": {
+        "car": 15,
+        "van": 15,
+        "truck": 15,
+        "bicycle": 15,
+        "traffic_sign": 15,
+        "traffic_cone": 15,
+        "traffic_light": 15,
+        "pedestrian": 15,
+        "others": 15
+      },
+    "dist_fcn": "center_distance",
+    "dist_ths": [0.5, 1.0, 2.0, 4.0],
+    "dist_th_tp": 2.0,
+    "min_recall": 0.1,
+    "min_precision": 0.1,
+    "max_boxes_per_sample": 500,
+    "mean_ap_weight": 5
+  }
+  
