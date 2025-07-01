@@ -162,3 +162,7 @@ val/
 .idea/
 
 data/
+
+distributed
+
+analysis/
